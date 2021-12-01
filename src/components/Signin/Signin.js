@@ -3,8 +3,10 @@ import axios from 'axios'
 import './Signin.css'
 import {useHistory} from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux'
-import { API_URL, TOKEN, USER_LOGIN } from "../../actions/types";
-import setToken from "../../utils/setAuthToken"
+import { API_URL, LOAD_PETS, TOKEN, USER_LOGIN } from "../../actions/types";
+import setToken from "../../utils/setAuthToken";
+import Logo from '../../assets/icons/Logo.png'
+import background from '../../assets/image/background@2x.png'
 const Signin  =()=>{
     const [account,setAccount] = useState({
         username:'',
@@ -14,6 +16,12 @@ const Signin  =()=>{
     const distpatch = useDispatch();
     const [error,setError] =useState('');
     const history = useHistory();
+    const loadUser=()=>{
+        
+    }
+    useEffect(()=>{
+
+    },[])
     const onChangeAccount = (event) =>{
         setAccount({
             ...account,[event.target.name]:event.target.value
@@ -28,6 +36,9 @@ const Signin  =()=>{
                 localStorage.setItem(TOKEN,response.data.token);
                 setToken(response.data.token)
                 distpatch({type:USER_LOGIN,payload:response.data.user});
+                const newResponse = await axios.get(`${API_URL}/api/Pet/list-pet`);
+                if(newResponse.data.success)
+                    distpatch({type:LOAD_PETS,payload:newResponse.data.pets})
                 history.push('/Home')
             }
             else
@@ -41,22 +52,26 @@ const Signin  =()=>{
     return(
         <div className='signin'>
             <div className='form-signin'>
-                <h1>Đăng nhập</h1>
-                <form  onSubmit={(event)=>onSignin(event)} noValidate>
-                    <div className='username'>
-                    <lable className="">Tên tài khoản</lable>
-                    <input type='text' className="username" name="username" placeholder="Nhập tài khoản" onChange={onChangeAccount}  noValidate />
-                    </div>
-                    <div className='password'>
-                    <lable className="">Mật khẩu</lable>
-                    <input type='password' className="password" name="password" placeholder="Nhập mật khẩu" onChange={onChangeAccount} noValidate />
-                    </div>
-                    <div className="log">
-                        <label style={{color:'red',fontSize:'17px',fontWeight:'600'}}>{error}</label>
-                        <button type='submit'>Đăng nhập</button>
-                        <small>Bạn chưa có tài khoản?</small>
-                    </div>
-                </form>
+                <img src={background} style={{width:500, height:600}} />
+                <div style={{display:'flex',alignItems:'center',flexDirection:'column'}}>
+                    <img src={Logo} style={{width:200,height:200}}/>
+                    <h1>Đăng nhập</h1>
+                    <form  onSubmit={(event)=>onSignin(event)} noValidate>
+                        <div className='username'>
+                            <lable className="">Tên tài khoản</lable>
+                            <input type='text' className="username" name="username" placeholder="Nhập tài khoản" onChange={onChangeAccount}  noValidate />
+                        </div>
+                        <div className='password'>
+                            <lable className="">Mật khẩu</lable>
+                            <input type='password' className="password" name="password" placeholder="Nhập mật khẩu" onChange={onChangeAccount} noValidate />
+                        </div>
+                        <div className="log">
+                            <label style={{color:'red',fontSize:'17px',fontWeight:'600'}}>{error}</label>
+                            <button type='submit'>Đăng nhập</button>
+                            <small style={{cursor:'pointer',color:'black'}} onClick={()=>history.push('/Signup')}>Bạn chưa có tài khoản?</small>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

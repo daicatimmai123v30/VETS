@@ -8,18 +8,20 @@
     background-color: #258ea6;
 }
 .form-signin{
-    width: 500px;
+    width: 1000px;
     display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
+    flex-direction: row;
     border-radius: 10px;
     box-shadow: 0px 10px 50px #555;
-    background-color: #ffffff;
+    background-color: #78A570;
+    align-items: center;
+    overflow:hidden;
 }
 form{
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 h1{
     text-align: center;
@@ -40,7 +42,6 @@ input{
     border-radius: 5px;
     outline: none;
     border: 1px solid #cfcfcf;
-
 }
 input::placeholder{
     font-size: 1.2em;
@@ -60,13 +61,11 @@ input.error{
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-}
-
-
-.username,
-.password{
     width: 100%;
 }
+
+
+
 .log{
     width: 100%;
     display: flex;
