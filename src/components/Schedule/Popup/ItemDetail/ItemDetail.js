@@ -287,12 +287,9 @@ const ItemDetail = (props) => {
                             <button className="btn-delete" onClick={()=>cancelAppointment()}>
                                 Hủy lịch
                             </button>
-                            {user.role==='ADMIN'&& props.data.status==="REQUESTING"?(
-                                <button className="btn-accept" onClick={()=>acceptAppointment()}>
-                                    Chấp nhận
-                                </button>
-                            ):null}
-                            
+                            <button className="btn-accept" onClick={()=>acceptAppointment()}>
+                                Chấp nhận
+                            </button>
                         </>
                     ):null}
                     {user.role==="ADMIN" && props.data.status==="WAITING"?(

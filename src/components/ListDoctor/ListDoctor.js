@@ -11,16 +11,22 @@ import ContainerLeft from '../Container/ContainerLeft';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import ReactStars from "react-rating-stars-component";
+import Add from '../../assets/icons/add.png';
 import './ListDoctor.css';
 const ListDoctor = () => {
     const history = useHistory();
     const [doctors,setDoctors] = useState([]);
-    const chat = useSelector(state => state.chat)
-    const distpatch = useDispatch();
+    const chat = useSelector(state => state.chat);
+    const {user} = useSelector(state => state.user);
+    const dispatch = useDispatch();
     const loadDoctors =async()=>{
         try {
             setAuthToken(localStorage.getItem(TOKEN))
-            const response = await axios.get(`${API_URL}/api/Doctor/list-doctor`);
+            var response;
+            if(window.location.pathname.split('/')[2])
+                response = await axios.get(`${API_URL}/api/Doctor/list-doctor/${window.location.pathname.split('/')[2]}`);
+            else
+                response = await axios.get(`${API_URL}/api/Doctor/list-doctor`);
             if(response.data.success)
             {
                 setDoctors(response.data.doctors)
@@ -61,7 +67,7 @@ const ListDoctor = () => {
                                             history.push(`/Doctor/${doctor._id}`);
                                         }}>{doctor.lastName +" "+ doctor.firstName}</a>
                                         <div style={{width:400,display:'flex',flexDirection:'row'}}>
-                                            <div className="btn-messenge" onClick={()=>distpatch({type:OPEN_CHAT,payload:{_id:doctor._id,firstName:doctor.firstName,image:doctor.image}})}>
+                                            <div className="btn-messenge" onClick={()=>dispatch({type:OPEN_CHAT,payload:{_id:doctor._id,firstName:doctor.firstName,image:doctor.image}})}>
                                                 <img style={{width:40,height:40}} src={Mess}/>
                                                 <label>Nhắn tin</label>
                                             </div>
@@ -83,6 +89,9 @@ const ListDoctor = () => {
                                 </div>
                                 ))}  
                             </div>
+                            {user.role==="ADMIN"?(
+                                <img src={Add} style={{width:200,height:200,cursor:'pointer'}} onClick={()=>history.push('Create-doctor')}/>
+                            ):null}
                         </div>
                     </div>
                 </div>  

@@ -3,7 +3,7 @@ import axios from 'axios'
 import './Signin.css'
 import {useHistory} from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux'
-import { API_URL, LOAD_PETS, TOKEN, USER_LOGIN } from "../../actions/types";
+import { API_URL, LOAD_PETS, TOKEN, USER_LOGIN,ACTIVE_USER } from "../../actions/types";
 import setToken from "../../utils/setAuthToken";
 import Logo from '../../assets/icons/Logo.png'
 import background from '../../assets/image/background@2x.png'
@@ -13,7 +13,7 @@ const Signin  =()=>{
         password:'',
     })
     const user = useSelector((state)=>state.user);
-    const distpatch = useDispatch();
+    const dispatch = useDispatch();
     const [error,setError] =useState('');
     const history = useHistory();
     const loadUser=()=>{
@@ -35,10 +35,11 @@ const Signin  =()=>{
             {
                 localStorage.setItem(TOKEN,response.data.token);
                 setToken(response.data.token)
-                distpatch({type:USER_LOGIN,payload:response.data.user});
+                dispatch({type:USER_LOGIN,payload:response.data.user});
+                dispatch({type:ACTIVE_USER,payload:response.data.user?._id})
                 const newResponse = await axios.get(`${API_URL}/api/Pet/list-pet`);
                 if(newResponse.data.success)
-                    distpatch({type:LOAD_PETS,payload:newResponse.data.pets})
+                    dispatch({type:LOAD_PETS,payload:newResponse.data.pets})
                 history.push('/Home')
             }
             else

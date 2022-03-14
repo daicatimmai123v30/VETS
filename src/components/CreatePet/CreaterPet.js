@@ -34,7 +34,7 @@ const CreaterPet = () => {
         gender:'',
         age:0,
         namePet:'',
-        weight:'',
+        weight:0,
         avatar:'',
         imagePet:[],
     })
@@ -94,8 +94,7 @@ const CreaterPet = () => {
             formData.append('namePet',petData.namePet);
             formData.append('weight',petData.weight);
             formData.append('avatar',petData.avatar);
-            formData.append('gender',petData.gender);
-            
+            formData.append('gender',petData.gender); 
             for (var image of petData.imagePet){
                 formData.append('images',image)
             }
@@ -187,11 +186,11 @@ const CreaterPet = () => {
                                     </div>
                                     <div className="pet-age">
                                         <lable className="">Tuổi</lable>
-                                        <input type="number"  placeholder="Tuổi" name="age" min="0" max="100" onChange={onChange}/>
+                                        <input type="number"  placeholder="Tuổi (có thể để trống)" name="age" min="0" max="100" onChange={onChange}/>
                                     </div>
                                     <div className="pet-weight">
                                         <lable className="">Cân nặng</lable>
-                                        <input type="number"  placeholder="Cân nặng" name="weight" min="0" max="100" onChange={onChange}/>
+                                        <input type="number"  placeholder="Cân nặng (có thể để trống)" name="weight" min="0" max="100" onChange={onChange}/>
                                     </div>
                                     <div className="view-media">
                                         <lable className="">Thêm ảnh</lable>

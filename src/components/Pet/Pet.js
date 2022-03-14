@@ -1,16 +1,20 @@
 import React ,{useEffect,useState} from 'react';
+import { useHistory } from 'react-router';
+import { useSelector,useDispatch } from 'react-redux';
+
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer';
 import ContainerLeft from '../Container/ContainerLeft';
 import axios from 'axios';
-import { API_URL, TOKEN } from '../../actions/types';
 import setAuthToken from '../../utils/setAuthToken';
-import { useHistory } from 'react-router';
 import Mess from '../../assets/icons/mess.png'
 import Chat from '../Chat/Chat';
-import './Pet.css'
-import { useSelector } from 'react-redux';
 import ViewFullImage from '../ViewFullImage/ViewFullImage';
+import MessageBox from '../MessageBox/MessageBox'
+
+import { API_URL, HIDE_LOADING, SHOW_LOADING, TOKEN } from '../../actions/types';
+import './Pet.css'
+
 const Pet = (props) => {
     const [pet,setPet]=useState({});
     const [isPet,setIsPet]=useState(false);
@@ -18,6 +22,13 @@ const Pet = (props) => {
     const {pets}= useSelector(state=>state.user);
     const [urlImageFullView,setUrlImageFullView]=useState('')
     const {location} = useHistory();
+    const history =useHistory();
+    const  dispatch = useDispatch();
+    const [messageBox,setMessageBox]=useState({
+        visible:false,
+        text:'',
+        isSuccess:false,
+    })
     const loadPet =async ()=>{
             for(var value of pets)
                 if(value._id===location.pathname.split('/')[2])
@@ -26,6 +37,36 @@ const Pet = (props) => {
                     setPet({...value,createdAt:new Date(value.createdAt).toISOString().split('T')[0]})
                 }
         
+    }
+    const deletePet =async()=>{
+        dispatch({type:SHOW_LOADING})
+        try {
+            const response =await axios.delete(`${API_URL}/api/Pet/${pet._id}`);
+            if(response.data.success)
+            {
+                setMessageBox({
+                    ...messageBox,
+                    visible:true,
+                    text:response.data.messages,
+                    isSuccess:true
+                })
+            }
+            else
+                setMessageBox({
+                    ...messageBox,
+                    visible:true,
+                    text:response.data.messages,
+                    isSuccess:false
+                })
+        } catch (error) {
+            setMessageBox({
+                ...messageBox,
+                visible:true,
+                text:'Lỗi server',
+                isSuccess:false
+            })
+        }
+        dispatch({type:HIDE_LOADING})
     }
     useEffect(()=>{
         loadPet();
@@ -52,7 +93,7 @@ const Pet = (props) => {
                                             <img style={{width:40,height:40}} src={Mess}/>
                                             <label>Chỉnh sửa</label>
                                         </div>
-                                        <div className="btn-delete">
+                                        <div className="btn-delete" onClick={()=>deletePet()}>
                                             <label>Xóa</label>
                                         </div>
                                     </div>
@@ -74,6 +115,18 @@ const Pet = (props) => {
                     </div>
                 </div>  
             </div>
+            {messageBox.visible?(
+                <MessageBox isSuccess={messageBox.isSuccess} messages={messageBox.text} onClick={()=>{
+                    if(messageBox.isSuccess)
+                    {
+                        setMessageBox({...messageBox,visible:false});
+                        history.push('/list-pet');
+                        window.location.reload(true)
+                    }
+                    else
+                        setMessageBox({...messageBox,visible:false})
+                }}/>
+            ):null}
             <Footer></Footer>
             {urlImageFullView?(
                 <ViewFullImage uri={urlImageFullView} onClick={()=>setUrlImageFullView('')}/>

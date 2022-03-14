@@ -72,6 +72,7 @@ function Chat({location}){
   }
   const loadMessages=()=>{
     socket.emit('loadMessages',{senderId:chat.activeUser,recieverId:chat.user._id},(data)=>{
+
       dispatch({type:LOAD_MESSAGE,payload:data});
     })
   }

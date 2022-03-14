@@ -4,7 +4,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer';
 import ContainerLeft from '../Container/ContainerLeft';
 import axios from 'axios';
-import { API_URL, HIDE_LOADING, SHOW_LOADING, TOKEN } from '../../actions/types';
+import { API_URL, HIDE_LOADING, OPEN_CHAT, SHOW_LOADING, TOKEN } from '../../actions/types';
 import setAuthToken from '../../utils/setAuthToken';
 import { useHistory } from 'react-router';
 import Appointment from '../../assets/icons/appointment.png'
@@ -20,6 +20,7 @@ const Doctor = () => {
     const [isDoctor,setIsDoctor]=useState(false)
     const chat =useSelector(state=>state.chat)
     const {location} = useHistory();
+    const history = useHistory();
     const [data,setData] = useState({
         rating:0,
         comments:'',
@@ -81,11 +82,11 @@ const Doctor = () => {
                                 <div className="user-avatar">
                                     <img  src={doctor.image} alt="user-avatar" className="user-image"/>
                                     <div style={{width:'100%',height:150,marginTop:20,alignItems:'center',justifyContent:'space-between',display:'flex',flexDirection:'column'}}>
-                                        <div className="btn-messenge">
+                                        <div className="btn-messenge" onClick={()=>dispatch({type:OPEN_CHAT,payload:{_id:doctor._id,firstName:doctor.firstName,image:doctor.image}})}>
                                             <img style={{width:40,height:40}} src={Mess}/>
                                             <label>Nhắn tin</label>
                                         </div>
-                                        <div className="btn-appointment">
+                                        <div className="btn-appointment" onClick={()=>history.push(`/Appointment/${doctor._id}`)}>
                                             <img style={{width:40,height:40}} src={Appointment}/>
                                             <label>Đặt lịch hẹn</label>
                                         </div>
@@ -102,11 +103,11 @@ const Doctor = () => {
                                         <input type="radio" id="javascript" name="role-doctor" value="Khác" disabled/>
                                     </div>
                                     <label className="property">Giới Tính: <label>{doctor.gender}</label></label>
-                                    <label className="property">Ngày Sinh: <label>{doctor.dateOfBirth}</label></label>
+                                    <label className="property">Ngày Sinh: <label>{doctor?.dateOfBirth?.split('T')[0]}</label></label>
                                     <label className="property">Số Điện Thoại: <label>{doctor.phoneNumber}</label></label>
                                     <label className="property">Tỉnh/Thành Phố: <label>{doctor.city}</label></label>
                                     <label className="property">Quận/Huyện: <label>{doctor.district}</label></label>
-                                    <label className="property">Xã/Phường: <label>{doctor.province}</label></label>
+                                    <label className="property">Xã/Phường: <label>{doctor.ward}</label></label>
                                     <label className="property">Bằng Cấp:</label>
                                 </div>
                             </div>

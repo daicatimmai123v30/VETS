@@ -13,6 +13,7 @@ export const ACTIVE_ROOM ="ACTIVE_ROOM";
 export const LOAD_MESSAGE ="LOAD_MESSAGE";
 export const ADD_MESSAGE ="ADD_MESSAGE";
 export const CLEAR_MESSAGES="CLEAR_MESSAGES";
+export const CLEAR_SESSION_MESSAGES="CLEAR_SESSION_MESSAGES"
 
 export const LOAD_PETS ="LOAD_PETS";
 export const ADD_PET="ADD_PET";
@@ -26,10 +27,10 @@ export const HIDE_LOADING="HIDE_LOADING"
 export const TOKEN ='TOKEN';
 export const UNIQUE_CHAT="UNIQUE_CHAT";
 export const UNIQUE_ROOM_CHAT="UNIQUE_ROOM_CHAT";
-export const API_URL='http://192.168.1.7:4444'
+export const API_URL='http://192.168.1.5:4444'
 
 // Socket config
-export const socket =IO('http://192.168.1.7:4441',{
+export const socket =IO('http://192.168.1.5:4441',{
     forceNew:true,
 })
 socket.on('connect',()=>console.log('connected'))

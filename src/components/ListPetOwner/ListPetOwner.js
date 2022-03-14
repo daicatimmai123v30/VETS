@@ -47,7 +47,7 @@ const ListPetOwner = () => {
                                     <img src={owner.image} className="owner-avatar" alt="owner-avatar"/>
                                     <div style={{paddingLeft:15}}>
                                         <a onClick={()=>{
-                                            // history.push(`/Doctor/${owner._id}`);
+                                            history.push(`/Profile/${owner._id}`);
                                         }}>{owner.lastName +" "+ owner.firstName}</a>
                                         <div style={{width:400,height:100,display:'flex',flexDirection:'row'}}>
                                             <div className="btn-messenge" onClick={()=>distpatch({type:OPEN_CHAT,payload:{_id:owner._id,firstName:owner.firstName,image:owner.image}})}>

@@ -1,4 +1,4 @@
-.main {
+/* .main {
     width: 100%;
     background-color:#f5f3f5;
     position: relative;
@@ -32,15 +32,18 @@
 }
 .container-right{
     flex: 0.65;
-}
+} */
 .container-right .box1{
     width: 100%;
-    min-height: 500px;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     border-collapse: collapse;
     border-radius: 12px;
     margin-bottom: 15px;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
    
 
@@ -60,7 +63,7 @@
     font-weight: bold;
 
 }
-.user-information{
+/* .user-information{
     width: 80%;
     min-height: 400px;
     background-color: white;
@@ -76,7 +79,6 @@
 .btn-label{
     font-size: 22px;
     font-family:'Trajan';
-    /* src: url('../../assets/fonts/Trajan\ Pro.ttf'); */
     src: url('../../assets/fonts/Trajan\ Pro.ttf');
     color:#1E3A28;
     font-weight: bold;
@@ -119,7 +121,7 @@
     font-size: 24px;
     color:#8D9986;
 
-}
+} */
 .file{
     height: 500px;
     width: 400px;
@@ -130,25 +132,34 @@
 .header_facility{
     display: flex;
     margin-bottom: 50px;
-    
+    flex-direction: row;
 }
 .header_facility-img{
     height: 175px;
     object-fit: contain;
     margin-right: 25px;
+    border-radius: 15px;
 }
 
-.header_faility-info{
+.header_facility-info{
     margin-left: 12px;
+    display:flex;
+    flex-direction: column;
 }
-.header_facility-name{
-    display: block;
-    font-size: 30px;
-    font-weight: 700 ;
+.header_facility-info .header_facility-descriotion span,
+.header_facility-info .header_facility-descriotion,
+.header_facility-info  .header_facility-name
+{
+    font-size: 24px;
     font-family: 'Times New Roman', Times, serif;
+    text-align: start;
+    font-weight: bold;
 }
-.header_facility-descriotion{
-    display: flex;
-    font-size: 22px;
-    font-weight: 500;
+
+.header_facility-info  .header_facility-descriotion span{
+    font-weight: normal;
+}
+
+.header_facility-info  .header_facility-name{
+    font-size: 30px;
 }

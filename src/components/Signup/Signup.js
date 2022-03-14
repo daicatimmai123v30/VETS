@@ -16,6 +16,7 @@ const Signup = ()=>{
         phoneNumber: "",
         password: ""
     })
+    const [error,setError] = useState('')
     const loadUser=()=>{
         if(user.isAuthentication)
             history.push('/Home')
@@ -40,20 +41,24 @@ const Signup = ()=>{
     }
     const onSignInSubmit=(event)=>{
         event.preventDefault();
-        configureCaptcha();
-        const appVerifier = window.recaptchaVerifier;
+        if(dataUser.firstName || dataUser.lastName || dataUser.password || dataUser.phoneNumber){
+            configureCaptcha();
+            const appVerifier = window.recaptchaVerifier;
 
-        const auth = getAuth();
-        signInWithPhoneNumber(auth,"+84"+ dataUser.phoneNumber, appVerifier)
-            .then((confirmationResult) => {
-            // SMS sent. Prompt user to type the code from the message, then sign the
-            // user in with confirmationResult.confirm(code).
-            window.confirmationResult = confirmationResult;
-                history.push('/verifyOTP',dataUser)
-            }).catch((error) => {
-                console.log(error.toString())
-            });
-            }
+            const auth = getAuth();
+            signInWithPhoneNumber(auth,"+84"+ dataUser.phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                window.confirmationResult = confirmationResult;
+                    history.push('/verifyOTP',dataUser)
+                }).catch((error) => {
+                    console.log(error.toString())
+                });
+        }
+        else
+            setError('Không được để trống tất cả')
+    }
     return(
         <div className='signup'>
             <div id="sign-in-button"></div>
@@ -80,6 +85,7 @@ const Signup = ()=>{
                         <input type='password' className="" placeholder="Nhập mật khẩu" name='password' onChange={handleChange} noValidate />
                         </div>
                         <div className="create">
+                            <label style={{color:'red',fontWeight:'bold',fontSize:15}}>{error}</label>
                             <button type='submit' >TẠO TÀI KHOẢN</button>
                             <small style={{cursor:'pointer',color:'black'}} onClick={()=>history.push('/Signin')}>Bạn đã có tài khoản?</small>
                         </div>

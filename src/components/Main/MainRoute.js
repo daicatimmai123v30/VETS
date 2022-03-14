@@ -17,7 +17,10 @@ import Pet from "../Pet/Pet";
 import Appointment from "../Appointment/Appointment";
 import Facility from '../Facility/Facility';
 import ListFacility from '../ListFacility/ListFacility';
-import Support from '../Support/Support'
+import Support from '../Support/Support';
+import Profile from "../Profile/Profile";
+import CreateFacility from "../CreateFacility/CreateFacility";
+import CreateDoctor from '../CreateDoctor/CreateDoctor'
 // import Signup from "./users/Signup";
 
 import setAuthToken from '../../utils/setAuthToken'
@@ -26,7 +29,8 @@ import { useDispatch,useSelector} from "react-redux";
 
 const Mainrouter = () =>{
     const dispatch = useDispatch();
-    const {user}=useSelector(state=>state.user)
+    const user=useSelector(state=>state.user);
+
     const checkToken = async()=>{
         const token = localStorage.getItem(TOKEN);
         try {
@@ -46,7 +50,9 @@ const Mainrouter = () =>{
                 setAuthToken(null);
             }
         } catch (error) {
-            console.log(error.toString())
+            dispatch({type:USER_ERROR})
+            localStorage.removeItem(TOKEN);
+            setAuthToken(null);
         }
     }
     const chatUserList =()=>{
@@ -56,8 +62,8 @@ const Mainrouter = () =>{
             localStorage.setItem(UNIQUE_CHAT,JSON.stringify([]))
         if(!unique_RoomChat)
             localStorage.setItem(UNIQUE_ROOM_CHAT,JSON.stringify([]))
-        if(user)
-            dispatch({type:ACTIVE_USER,payload:user._id})
+        if(user.isAuthentication)
+            dispatch({type:ACTIVE_USER,payload:user?.user?._id})
     }
     useEffect(()=>{
         checkToken();
@@ -65,23 +71,36 @@ const Mainrouter = () =>{
     },[])
     return(
         <Switch >
+            {user?.user?.role==="DOCTOR" || user?.user?.role==="ADMIN"?(
+                <Route path='/List-pet-owner' component={ListPetOwner}/>
+            ):null}
             <Route path='/Signin' component={Signin} />
             <Route path='/Signup' component={Signup}/>
             <Route path='/Home' component={Home}/>
-            <Route path='/List-doctor' component={ListDoctor}/>
-            <Route path='/Doctor/:slug' component={Doctor}/>
-            <Route path='/List-pet' component={ListPet}/>
-            <Route path='/List-pet-owner' component={ListPetOwner}/>
-            <Route path='/Schedule' component={Schedule}/>
-            <Route path='/VerifyOTP' component={VerifyOTP}/>
             <Route path='/Information' component={Information}/>
-            <Route path='/Create-pet' component={CreaterPet}/>
-            <Route path='/Pet/:slug' component={Pet}/>
-            <Route path='/Appointment/:slug' component={Appointment}/>
-            <Route path='/Appointment' component={Appointment}/>
-            <Route path='/Facility/:slug' component={Facility}/>
-            <Route path='/Facility' component={ListFacility}/>
-            <Route path='/Support' component={Support}/>
+            <Route path='/VerifyOTP' component={VerifyOTP}/>
+            {user.isAuthentication?(
+                <>
+                <Route path='/List-doctor' component={ListDoctor}/>
+                <Route path='/Doctor/:slug' component={Doctor}/>
+                <Route path='/List-pet' component={ListPet}/>
+                <Route path='/Schedule' component={Schedule}/>
+                <Route path='/Create-pet' component={CreaterPet}/>
+                <Route path='/Pet/:slug' component={Pet}/>
+                <Route path='/Profile/:slug' component={Profile}/>
+                <Route path='/Appointment/:slug' component={Appointment}/>
+                <Route path='/Appointment' component={Appointment}/>
+                <Route path='/Facility/:slug' component={Facility}/>
+                <Route path='/List-facility' component={ListFacility}/>
+                <Route path='/Support' component={Support}/>
+                {user.user.role==="ADMIN"?(
+                    <>
+                        <Route path='/Create-facility' component={CreateFacility}/>
+                        <Route path='/Create-doctor' component={CreateDoctor}/>
+                    </>
+                ):null}
+                </>
+            ):null}
             <Redirect to='/Home'/>
         </Switch>
     )

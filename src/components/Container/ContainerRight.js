@@ -12,7 +12,6 @@ const ContainerRight = () => {
         try {
             setAuthToken(localStorage.getItem(TOKEN))
             const response = await axios.get(`${API_URL}/api/Appointment`);
-            console.log(response)
             if(response.data.success)
             {
                 const newAppointment = response?.data?.appointments.map((value=>{
@@ -83,8 +82,8 @@ const ContainerRight = () => {
                                                 </p>
                                             </div>
                                             <div className="appointment-infor">
-                                                <p>Thú cưng: {value.idPet.namePet}</p>
-                                                <p>Bác sĩ: {value.idDoctor.lastName+" "+ value.idDoctor.firstName}</p>
+                                                <p>Thú cưng: {value.idPet?.namePet}</p>
+                                                <p>Bác sĩ: {value?.idDoctor?.lastName+" "+ value?.idDoctor?.firstName}</p>
                                             </div>
                                         </div>   
                                     ))
@@ -104,25 +103,25 @@ const ContainerRight = () => {
                             <div className="news">
                                 <div className="news-form">
                                     <label className="news-data">
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
                                     </label>
                                     <a href="">Xem thêm</a>
                                 </div>
                                 <div className="news-form">
                                     <label className="news-data">
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
                                     </label>
                                     <a href="">Xem thêm</a>
                                 </div>
                                 <div className="news-form">
                                     <label className="news-data">
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    2021, Oct 30: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
+                                    2021, Oct 30: Tại Artemis quý khách có thể tìm được rất nhiều sản phẩm phục vụ cho nhu cầu của thú cưng. Đặc biệt khi quý khách mua các sản phẩm liên quan tới sức khỏe thú cưng (thực phẩm chức năng, thực phẩm dinh dưỡng, mỹ phẩm) sẽ được đội ngũ bác sỹ, chuyên viên tư vấn theo đặc tính và tình trạng sức khỏe của thú cưng quý khách.
                                     </label>
                                     <a href="">Xem thêm</a>
                                 </div>
